@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>XQ Desert HD</title>
+<style>
+body{margin:0;overflow:hidden;background:#000;touch-action:none}
+canvas{display:block}
+#joy{position:fixed;bottom:30px;left:25px;width:115px;height:115px;background:rgba(255,255,255,0.12);border:2px solid rgba(255,255,255,0.2);border-radius:50%;z-index:20}
+#stick{position:absolute;left:37px;top:37px;width:40px;height:40px;background:rgba(255,255,255,0.7);border-radius:50%}
+</style>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js"}}</script>
+</head>
+<body>
+<div id="joy"><div id="stick"></div></div>
+<script type="module">
+import * as THREE from 'three';
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x080810);
+scene.fog=new THREE.Fog(0x080810,12,38);
+const camera=new THREE.PerspectiveCamera(70,innerWidth/innerHeight,0.1,1000);
+const renderer=new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(innerWidth,innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+document.body.appendChild(renderer.domElement);
+scene.add(new THREE.AmbientLight(0x666688,0.8));
+const sun=new THREE.DirectionalLight(0xffffff,1.3);sun.position.set(6,12,4);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);scene.add(sun);
+const floor=new THREE.Mesh(new THREE.Plane
